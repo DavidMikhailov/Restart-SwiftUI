@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3A4F197527B475B20021C659 /* CircleGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4F197427B475B20021C659 /* CircleGroupView.swift */; };
 		3A65311227AD685B00D0855C /* RestartApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A65311127AD685B00D0855C /* RestartApp.swift */; };
 		3A65311427AD685B00D0855C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A65311327AD685B00D0855C /* ContentView.swift */; };
 		3A65311627AD685D00D0855C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A65311527AD685D00D0855C /* Assets.xcassets */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3A4F197427B475B20021C659 /* CircleGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleGroupView.swift; sourceTree = "<group>"; };
 		3A65310E27AD685B00D0855C /* Restart.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Restart.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A65311127AD685B00D0855C /* RestartApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestartApp.swift; sourceTree = "<group>"; };
 		3A65311327AD685B00D0855C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -41,6 +43,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3A4F197327B475770021C659 /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "New Group";
+			sourceTree = "<group>";
+		};
 		3A65310527AD685B00D0855C = {
 			isa = PBXGroup;
 			children = (
@@ -60,6 +69,7 @@
 		3A65311027AD685B00D0855C /* Restart */ = {
 			isa = PBXGroup;
 			children = (
+				3A4F197327B475770021C659 /* New Group */,
 				3A65312727AD6FFB00D0855C /* Info.plist */,
 				3A65312627AD6E4B00D0855C /* Utilities */,
 				3A65312527AD6E2400D0855C /* Views */,
@@ -102,6 +112,7 @@
 		3A65312527AD6E2400D0855C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				3A4F197427B475B20021C659 /* CircleGroupView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -185,6 +196,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3A4F197527B475B20021C659 /* CircleGroupView.swift in Sources */,
 				3A65BFA427B3D2F10093D3C5 /* OnboardingView.swift in Sources */,
 				3A65BFA627B3D3220093D3C5 /* HomeView.swift in Sources */,
 				3A65311427AD685B00D0855C /* ContentView.swift in Sources */,
