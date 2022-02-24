@@ -15,7 +15,9 @@ struct OnboardingView: View {
     @State private var buttonWidth: Double = UIScreen.main.bounds.width - 80
     @State private var buttonOffset: CGFloat = 0
     @State private var isAnimating: Bool = false
-
+    @State private var imageOffset: CGSize = .zero
+    @State private var indicatorOpacity: Double = 1.0
+    @State private var textTitle: String = "Share."
 
     // MARK: - Body
     var body: some View {
@@ -28,10 +30,12 @@ struct OnboardingView: View {
                 Spacer()
 
                 VStack(spacing: 0) {
-                    Text("Share.")
+                    Text(textTitle)
                         .font(.system(size: 60))
                         .fontWeight(.heavy)
                         .foregroundColor(.white)
+                        .transition(.opacity)
+                        .id(textTitle)
 
                     Text("""
                     It's not how much we give but
@@ -50,13 +54,64 @@ struct OnboardingView: View {
                 // MARK: - Center
                 ZStack {
                     CircleGroupView(ShapeColor: .white, ShapeOpacity: 0.2)
+                    // При dragging кольцо движется в противоположную сторону.
+                        .offset(x: imageOffset.width * -1)
+                        // Отрицательное число для блюр эффекта ничего не даст, нужно только положительное, поэтому используем abs().
+                        .blur(radius: abs(imageOffset.width / 5))
+                        .animation(.easeOut(duration: 1), value: imageOffset)
 
                     Image("character-1")
                         .resizable()
                         .scaledToFit()
+                        // Прозрачность с использование проперти и тернарного оператора.
                         .opacity(isAnimating ? 1 : 0)
+                    // Умножение в оффсете значит скорость анимации. Также в зависимости от оси мы можем выбрать движение имаджа.
+                        .offset(x: imageOffset.width * 1.2, y: 0)
+                    // Ротейшн эффект - это закругление имаджа при его перетягивании.
+                        .rotationEffect(.degrees(Double(imageOffset.width / 20)))
                         .animation(.easeOut(duration: 0.5), value: isAnimating)
+                        .gesture(
+                        //Движение перетаскивания, вызывающее действие при изменении последовательности событий перетаскивания.
+                            DragGesture()
+                                .onChanged { gesture in
+                                    if abs(imageOffset.width) <= 150 {
+                                        // Меняем оффсет.
+                                        imageOffset = gesture.translation
+
+                                        // Исчезают стрелочки, при жесте dragging.
+                                        withAnimation(.linear(duration: 0.25)) {
+                                            indicatorOpacity = .zero
+
+                                            textTitle = "Give."
+                                        }
+                                    }
+                                }
+                                .onEnded { _ in
+                                    // В конце жеста меняет оффсет на ноль. То есть возвращает имадж на место.
+                                    imageOffset = .zero
+
+                                    withAnimation(.linear(duration: 0.25)) {
+                                        indicatorOpacity = 1
+
+                                        textTitle = "Share."
+                                    }
+                                }
+                        )//: Gesture
+                    // Анимация жеста перетягивания.
+                        .animation(.easeOut(duration: 1), value: imageOffset)
                 } //: Center
+                // Наложение поверх всего симыолв с двумя стрелками.
+                .overlay (
+                    Image(systemName: "arrow.left.and.right.circle")
+                        .font(.system(size: 44, weight: .ultraLight))
+                        .foregroundColor(.white)
+                        .offset(y: 20)
+                        .opacity(isAnimating ? 1 : 0)
+                        // Показывает стрелки через 2 секунды, с эффектом, длящимся 1 сек.
+                        .animation(.easeOut(duration: 1).delay(2), value: isAnimating)
+                        .opacity(indicatorOpacity)
+                    , alignment: .bottom
+                )
 
                 Spacer()
 
